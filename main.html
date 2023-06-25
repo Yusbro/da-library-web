@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Thasadith">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            font-family: 'Thasadith', serif;
+            background-color: #E9CDFF;
+            margin: 0%;
+            top: 0%;
+        }
+
+        .world {
+            transition: filter 1s ease;
+        }
+
+        .Search {
+            background-color: #9E00FF;
+            color: black;
+            width: 100%;
+            text-align: left;
+            padding: 1vh;
+            top: 0%;
+            font-size: 3vh;
+
+            transition: all 1s ease;
+        }
+
+
+        .bottom_bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .SearchBar {
+            display: flex;
+            flex-direction: column;
+            padding-top: 3vh;
+            text-align: center;
+
+            align-content: center;
+            justify-content: center;
+        }
+
+        .SearchBar>input {
+            height: 5vh;
+            width: 30vw;
+            border: unset;
+            background-color: #D5B1E7;
+            box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.288)
+        }
+
+        .ButtonBox {
+            padding-top: 2vh;
+            width: 30vw;
+        }
+
+        .ButtonBox>button {
+            font-family: 'Thasadith', serif;
+            font-size: 4vh;
+            background-color: #EDA4FF;
+            width: 10vw;
+            height: 5vh;
+
+            border: unset;
+            box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.288)
+        }
+
+        #Stuff {
+            padding-top: 3vh;
+            font-size: 2vh;
+        }
+
+
+        .Popup {
+            background-color: #9E00FF;
+            width: 30vw;
+            height: 30vh;
+            border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+            flex-direction: column;
+
+            padding: 10vh;
+
+            align-items: center;
+        }
+
+        .Popup > form > label{
+            font-size: 3vh;
+        }
+
+        .Popup > form > button{
+            height: 4vh;
+            border: unset;
+            background-color: #EDA4FF;
+            font-family: 'Thasadith', serif;
+            font-size: 3vh;
+            box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.288)
+        }
+
+        #Name, #Author, #Page{
+            width: 20vw;
+            height:4vh;
+            border: unset;
+
+            background-color: #D5B1E7;
+            box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.288);
+            margin-bottom: 1vh;
+        }
+
+        .custom-line {
+            border: none;
+            height: 1px;
+            /* Remove the default border */
+            border-top: 2px solid rgba(0, 0, 0, 0.2);
+            /* Apply custom border properties */
+            width: 50vw;
+        }
+
+
+        .RowBar {
+            display: flex;
+            padding: 0%;
+            padding-bottom: 0%;
+            margin: 0vh;
+        }
+
+       
+
+
+
+        .TitleRow {
+            flex: 1;
+        }
+
+        .AuthorRow {
+            flex: 1;
+        }
+
+        .PageRow {
+            flex: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="world" id="world">
+        <div class="Search" id="Search">
+            <h1>Da Library</h1>
+        </div>
+
+
+
+        <div class="bottom_bar">
+
+            <div class="SearchBar">
+                <input type="text"><br>
+                <div class="ButtonBox">
+                    <button id="popup">Add</button>
+                    <button id="popup">Search</button>
+                </div>
+            </div>
+
+
+            <div id="Stuff">
+
+                <div class="RowBar">
+                    <div class="TitleRow">
+                        <h1>Title</h1>
+                    </div>
+                    <div class="AuthorRow">
+                        <h1>Author</h1>
+                    </div>
+                    <div class="PageRow">
+                        <h1>Page</h1>
+                    </div>
+                </div>
+                <hr class="custom-line">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="Popup" id="Popup">
+        <form>
+            <Label for="Name">Name</Label><br>
+            <input type="text" name="Name" id="Name"><br>
+            <Label for="Author">Author</Label><br>
+            <input type="text" name="Author" id="Author"><br>
+            <Label for="Page">Page</Label><br>
+            <input type="text" name="Page" id="Page"><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+
+
+    <script>
+        const pop_div = document.getElementById("Popup");
+        const popup_button = document.getElementById("popup");
+
+        const world = document.getElementById("world")
+        const search = document.getElementById("Search")
+
+
+        popup_button.addEventListener("click", function () {
+            if (pop_div.style.display === "none") {
+                pop_div.style.display = "flex";
+                search.style.padding = "100vh"
+                //world.style.filter = "blur(10px) grayscale(100%)"
+            }
+            else {
+                pop_div.style.display = "none";
+                world.style.filter = "blur(0px) grayscale(0%)"
+            }
+        });
+
+        const form = document.getElementById("Popup")
+        form.addEventListener("submit", function () {
+            event.preventDefault();
+
+            const name = document.getElementById("Name").value;
+            const author = document.getElementById("Author").value;
+            const page = document.getElementById("Page").value;
+
+            const name_child = document.createElement("p")
+            name_child.textContent = name;
+            name_child.className = "TitleRow";
+
+            const author_child = document.createElement("p")
+            author_child.textContent = author;
+            author_child.className = "AuthorRow";
+
+            const page_child = document.createElement("p")
+            page_child.textContent = page;
+            page_child.className = "PageRow";
+            
+            const break_child = document.createElement("br");
+
+            const line_child = document.createElement("hr");
+            line_child.className = "custom-line"
+
+            const parent = document.createElement("div");
+            parent.className="RowBar"
+            parent.appendChild(name_child);
+            parent.appendChild(author_child);
+            parent.appendChild(page_child)
+
+            
+
+            const stuff = document.getElementById("Stuff")
+            stuff.appendChild(parent)
+            //stuff.appendChild(break_child)
+            stuff.appendChild(line_child)
+
+            pop_div.style.display = "none";
+            search.style.padding = "1vh"
+        })
+    </script>
+
+</body>
+
+</html>
