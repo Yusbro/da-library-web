@@ -236,6 +236,10 @@
             const author = document.getElementById("Author").value;
             const page = document.getElementById("Page").value;
 
+            if (name=="" || author==""){
+                return;
+            }
+
             const name_child = document.createElement("p")
             name_child.textContent = name;
             name_child.className = "TitleRow";
